@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-image: url("IMAGE.JPG.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator-container {
+            background-color: #000;
+  opacity: 0.8;
+  padding: 1.5em;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 380px;
+  margin: 1em;
+  color: white;
+  line-height: 3em;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #result-container {
+            margin-top: 20px;
+        }
+    </style>
+    <title>Age Calculator</title>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Age Calculator</h1>
+        <label for="dob">Enter your date of birth:</label>
+        <input type="date" id="dob">
+        <button onclick="calculateAge()">Calculate</button>
+
+        <div id="result-container" style="display: none;">
+            <h2>Your Age:</h2>
+            <p id="years">Years: 0</p>
+            <p id="months">Months: 0</p>
+            <p id="days">Days: 0</p>
+            <p id="hours">Hours: 0</p>
+            <p id="minutes">Minutes: 0</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const dobInput = document.getElementById("dob").value;
+
+            // Check if date of birth is not empty
+            if (!dobInput) {
+                alert("Please select a valid date of birth.");
+                return;
+            }
+
+            const dob = new Date(dobInput);
+            const currentDate = new Date();
+
+            const ageInMilliseconds = currentDate - dob;
+            const ageInSeconds = ageInMilliseconds / 1000;
+            const ageInMinutes = ageInSeconds / 60;
+            const ageInHours = ageInMinutes / 60;
+            const ageInDays = ageInHours / 24;
+            const ageInMonths = ageInDays / 30.44; // Approximate average days in a month
+            const ageInYears = ageInDays / 365.25; // Taking into account leap years
+
+            document.getElementById("years").innerText = `Years: ${Math.floor(ageInYears)}`;
+            document.getElementById("months").innerText = `Months: ${Math.floor(ageInMonths)}`;
+            document.getElementById("days").innerText = `Days: ${Math.floor(ageInDays)}`;
+            document.getElementById("hours").innerText = `Hours: ${Math.floor(ageInHours)}`;
+            document.getElementById("minutes").innerText = `Minutes: ${Math.floor(ageInMinutes)}`;
+
+            document.getElementById("result-container").style.display = "block";
+        }
+    </script>
+</body>
+</html>
